@@ -1,5 +1,5 @@
 name: Taller CI/CD
-run-name: Estamos ejecutando accinoes automaticas
+run-name: Estamos ejecutando acciones automaticas
 
 on: [push]
 
@@ -7,19 +7,8 @@ jobs:
   miPrimeraAutomatizacion:
     runs-on: ubuntu-latest
     steps:
-      - name: decir hola
-        run: echo "Hola"
-      - name: quien soy
-        run: whoami
-      - name: donde estoy
-        run: lsb_release -a
-      - name: que tengo a la vista
-        run: ls .
-      - name: que carpeta estoy
-        run: pwd
-      - name: actualizar repo
-        run: sudo apt update
-      - name: instalar programa
-        run: sudo apt install -y cowsay
-      - name: ejecutar comando
-        run: cowsay "hello world"
+      - name: cargar ficheros repos
+        uses: actions/checkout@v6
+      - name: mostrar ficheros
+        run: ls -luah .
+      
