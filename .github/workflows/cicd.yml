@@ -15,6 +15,25 @@ jobs:
           node-version: 20
       - name: instalar dependencias
         run: npm install
+
+      - name: test
+        run: npx vitest run
+
       - name: Build
         run: npm run build
       
+      - name: deploy
+        env:
+          PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+          HOST: ${{ vars.EC2_HOST }}
+        run: |
+          echo "$PRIVATE_KEY" > clave_aws.pem
+          chmod 600 clave_aws.pem
+          ssh -o StrictHostKeyChecking=no -i clave_aws.pem ubuntu@${HOST} '
+          echo "Carpeta actual: $(pwd)"
+          ls -la .
+          sudo apt update
+          sudo apt install apache2 -y
+          sudo systemctl start apache2
+          sudo systemctl enable apache2
+          '
