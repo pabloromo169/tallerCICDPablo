@@ -17,4 +17,9 @@ jobs:
         run: ls .
       - name: que carpeta estoy
         run: pwd
-        
+      - name: actualizar repo
+        run: sudo apt update
+      - name: instalar programa
+        run: sudo apt install -y cowsay
+      - name: ejecutar comando
+        run: cowsay "hello world"
