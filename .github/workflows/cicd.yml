@@ -30,10 +30,19 @@ jobs:
           echo "$PRIVATE_KEY" > clave_aws.pem
           chmod 600 clave_aws.pem
           ssh -o StrictHostKeyChecking=no -i clave_aws.pem ubuntu@${HOST} '
-          echo "Carpeta actual: $(pwd)"
-          ls -la .
-          sudo apt update
-          sudo apt install apache2 -y
-          sudo systemctl start apache2
-          sudo systemctl enable apache2
+            echo "Carpeta actual: $(pwd)"
+            ls -la .
+            sudo apt update
+            sudo apt install apache2 -y
+            sudo service apache2 enable
+            sudo service apache2 start
+            sudo service apache2 status
+            mkdir -p ~/appdeploy
+          '
+          scp -i clave-aws.pem -o StrictHostKeyChecking=no -r ./dist/* ubuntu@${HOST}:~/appdeploy
+          ssh -o StrictHostKeyChecking=no -i clave_aws.pem ubuntu@${HOST} '
+            sudo mv ~/appdeploy/* /var/www/html
+            sudo chown -R www-data:www-data /var/www/html
+            sudo service apache2 restart
+            sudo rm -rf ~/appdeploy
           '
