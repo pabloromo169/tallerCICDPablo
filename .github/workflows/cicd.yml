@@ -1,0 +1,11 @@
+name: Taller CI/CD
+run-name: Estamos ejecutando accinoes automaticas
+
+on: [push]
+
+jobs: 
+  miPrimeraAutomatizacion:
+    runs-on: ubuntu-latest
+    steps:
+      - name: decir hola
+        run: echo "Hola"
