@@ -9,6 +9,12 @@ jobs:
     steps:
       - name: cargar ficheros repos
         uses: actions/checkout@v6
-      - name: mostrar ficheros
-        run: ls -luah .
+      - name: instalar node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: instalar dependencias
+        run: npm install
+      - name: Build
+        run: npm run build
       
