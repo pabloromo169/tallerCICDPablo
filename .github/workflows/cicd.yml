@@ -9,3 +9,12 @@ jobs:
     steps:
       - name: decir hola
         run: echo "Hola"
+      - name: quien soy
+        run: whoami
+      - name: donde estoy
+        run: lsb_release -a
+      - name: que tengo a la vista
+        run: ls .
+      - name: que carpeta estoy
+        run: pwd
+        
